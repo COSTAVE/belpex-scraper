@@ -4,7 +4,11 @@ import { parse } from 'csv-parse/sync';
 export default async function handler(req, res) {
   try {
     const csvUrl = 'https://my.elexys.be/MarketInformation/SpotBelpexExport.aspx';
-    const response = await fetch(csvUrl);
+    const response = await fetch(csvUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0'
+      }
+    });
 
     if (!response.ok) {
       return res.status(500).json({ error: 'Fout bij ophalen CSV-bestand' });
